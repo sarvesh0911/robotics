@@ -17,9 +17,7 @@ body {
   width: 80vw;
   height: 40vh;
   perspective: 600px;
-  top: calc(
-    50% - 20vh
-  ); /* Adjusted to ensure it's centered and not covering new content */
+  top: calc(50% - 20vh); /* Adjusted to ensure it's centered and not covering new content */
   left: calc(50% - 40vw);
 }
 
@@ -33,7 +31,7 @@ body {
   transform-style: preserve-3d;
   color: transparent;
   transition: all ease 0.3s;
-  animation: spinIt linear 20s infinite;
+  animation: spinIt linear 20s infinite, moveGuy 5s ease-in-out infinite alternate;
 }
 
 @keyframes spinIt {
@@ -42,6 +40,15 @@ body {
   }
   100% {
     transform: translateZ(-10vw) rotateY(-180deg);
+  }
+}
+
+@keyframes moveGuy {
+  0% {
+    transform: translateX(-10vw) translateY(0);
+  }
+  100% {
+    transform: translateX(10vw) translateY(0);
   }
 }
 
@@ -64,8 +71,7 @@ body {
 }
 
 b {
-  box-shadow: inset 0 0 0.1em rgba(0, 255, 0, 0.1),
-    inset 0 0 0.3em rgba(0, 0, 0, 0.8);
+  box-shadow: inset 0 0 0.1em rgba(0, 255, 0, 0.1), inset 0 0 0.3em rgba(0, 0, 0, 0.8);
   display: block;
   width: 1em;
   height: 1em;
@@ -146,6 +152,18 @@ b {
     transform: rotateX(-45deg);
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 .wordCarousel div {
   overflow: hidden;
@@ -430,7 +448,12 @@ b {
   }
 }
 
-/* === responsive css==*/
+
+
+
+
+/* reponsive word */
+
 
 @media (max-width: 576px) {
   #platform .wordCarousel {
@@ -450,7 +473,6 @@ b {
     max-width: 150px;
   }
 }
-
 /* navbar */
 
 .navbar-brand {
@@ -480,45 +502,6 @@ b {
   color: #000;
 }
 
-/* reponsive navbar */
-
-@media (max-width: 768px) {
-  #platform .wordCarousel {
-    font-size: 1.5rem;
-  }
-
-  #platform .flip5 li {
-    font-size: 1.2rem;
-  }
-
-  .button--wrap .btn {
-    font-size: 0.875rem;
-    padding: 8px 16px;
-  }
-
-  .guy {
-    max-width: 200px;
-  }
-}
-
-@media (max-width: 576px) {
-  #platform .wordCarousel {
-    font-size: 1.2rem;
-  }
-
-  #platform .flip5 li {
-    font-size: 1rem;
-  }
-
-  .button--wrap .btn {
-    font-size: 0.75rem;
-    padding: 6px 12px;
-  }
-
-  .guy {
-    max-width: 150px;
-  }
-}
 
 #newContent {
   padding: 30px;
@@ -758,23 +741,40 @@ b {
   }
 }
 
+
+
+/* project portfolio */
+
+
 .wrapper {
   padding: 10px 10%;
 }
-#card-area {
+
+.card-area {
   padding: 50px 0;
 }
+
 .box-area {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-gap: 40px;
   margin-top: 50px;
 }
+
 .box {
   border-radius: 10px;
   position: relative;
   overflow: hidden;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
+  opacity: 0;  /* Start as invisible */
+  transform: translateY(70px); /* Start slightly below */
+  transition: opacity 1s ease, transform 5s ease; /* Smooth transition */
+}
+
+/* Add animation for boxes when they are visible */
+.box.show {
+  opacity: 1;  /* Make visible */
+  transform: translateY(0); /* Move to original position */
 }
 
 .box img {
@@ -783,6 +783,14 @@ b {
   display: block;
   transition: transform 0.5s;
 }
+
+/* Optional: Add a hover effect */
+.box:hover img {
+  transform: scale(1.05); /* Slightly enlarge image on hover */
+}
+
+
+
 
 /* team */
 .team .card {
@@ -793,6 +801,14 @@ b {
   border: none;
   margin-right: 20px;
   margin-top: 80px;
+  opacity: 0; /* Initially hidden */
+  transform: translateX(-100%); /* Start off-screen to the left */
+  transition: transform 1.5s ease-out, opacity 4.0s ease-out;
+}
+
+.team .card.show {
+  opacity: 1; /* Visible when scrolled into view */
+  transform: translateX(0); /* Slides into place */
 }
 
 #team .row {
@@ -822,6 +838,12 @@ b {
   color: #fff;
   margin: 0 0.2rem;
 }
+
+
+
+
+
+/* whatapp icon*/
 
 .whatsapp_main {
   position: fixed;
